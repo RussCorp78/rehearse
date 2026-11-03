@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Stage Partner</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div>
+      <p class="eyebrow">YOUR PERSONAL REHEARSAL ASSISTANT</p>
+      <h1>Stage Partner</h1>
+      <p class="subhead">Learn your lines, one cue at a time.</p>
+    </div>
+  </header>
+
+  <main>
+    <section class="panel setup-panel" id="setupPanel">
+      <h2>Set up a rehearsal</h2>
+      <label for="playName">Play or scene name</label>
+      <input id="playName" type="text" placeholder="e.g. Scene 1 – The confrontation">
+
+      <label for="scriptInput">Paste your script</label>
+      <p class="help">Use one line per entry, in the format <code>CHARACTER: dialogue</code>. Blank lines are ignored.</p>
+      <textarea id="scriptInput" rows="10" spellcheck="false">JOHN: Where have you been all this time?
+SARAH: I've been waiting for you.
+JOHN: You said you would never come back.
+SARAH: I changed my mind.
+JOHN: Well, what do you want?
+SARAH: I want you to listen.</textarea>
+
+      <div class="two-col">
+        <div>
+          <label for="characterSelect">Your character</label>
+          <select id="characterSelect"><option value="">Paste a script first</option></select>
+        </div>
+        <div>
+          <label for="strictness">Line matching</label>
+          <select id="strictness">
+            <option value="loose">Forgiving – catches the main wording</option>
+            <option value="medium" selected>Balanced – allows small differences</option>
+            <option value="strict">Close to the script</option>
+          </select>
+        </div>
+      </div>
+      <div class="button-row">
+        <button class="primary" id="prepareBtn">Prepare script</button>
+        <button class="secondary" id="loadBtn" type="button">Load saved script</button>
+      </div>
+      <p id="setupMessage" class="status" aria-live="polite"></p>
+    </section>
+
+    <section class="panel lines-panel hidden" id="linesPanel">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">SCRIPT & RECORDINGS</p>
+          <h2 id="currentPlayTitle">Your scene</h2>
+        </div>
+        <button class="text-button" id="backToSetupBtn">Edit script</button>
+      </div>
+      <p class="help">Add a recording to each other character's line. You can record it here or choose an audio file.</p>
+      <div id="lineList" class="line-list"></div>
+      <div class="button-row">
+        <button class="primary" id="startRehearsalBtn">Start rehearsal</button>
+        <button class="secondary" id="saveScriptBtn">Save on this device</button>
+      </div>
+      <p id="recordingMessage" class="status" aria-live="polite"></p>
+    </section>
+
+    <section class="panel rehearsal-panel hidden" id="rehearsalPanel">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">REHEARSAL</p>
+          <h2 id="rehearsalTitle">Your scene</h2>
+        </div>
+        <button class="text-button" id="endRehearsalBtn">End rehearsal</button>
+      </div>
+      <div class="progress-track"><div id="progressBar"></div></div>
+      <p class="progress-label" id="progressLabel">Line 1 of 1</p>
+      <div class="cue-card">
+        <p class="eyebrow" id="cueSpeaker">CUE</p>
+        <p class="cue-text" id="cueText">The other character's line will appear here.</p>
+        <p class="help" id="cueHint"></p>
+      </div>
+      <div class="response-card">
+        <p class="eyebrow">YOUR TURN</p>
+        <h3 id="responsePrompt">Listen for your cue…</h3>
+        <p id="recognisedText" class="recognised" aria-live="polite">Your recognised words will appear here.</p>
+        <p id="feedback" class="feedback" aria-live="polite"></p>
+        <div class="button-row centered">
+          <button class="primary" id="listenBtn">Start listening</button>
+          <button class="secondary" id="finishLineBtn" hidden>Finish line</button>
+          <button class="secondary" id="hintBtn">Give me a hint</button>
+          <button class="secondary" id="repeatBtn">Repeat cue</button>
+        </div>
+        <div class="button-row centered">
+          <button class="text-button" id="skipBtn">Skip line</button>
+          <button class="text-button" id="restartBtn">Restart scene</button>
+        </div>
+      </div>
+      <p class="help privacy-note">Microphone recognition is handled by your browser and may require an internet connection. Recordings and scripts are kept in this browser on this device.</p>
+    </section>
+  </main>
+
+  <footer>Stage Partner · A simple local rehearsal tool</footer>
+  <script src="app.js"></script>
+</body>
+</html>
