@@ -330,12 +330,15 @@
       if (listening) speechRestartTimer = setTimeout(() => startRecognitionSession(SpeechRecognition), 500);
     }
   }
-  function finishListening() {
-    if (!listening) return;
+  function stopListening() {
     listening = false;
     if (speechRestartTimer) { clearTimeout(speechRestartTimer); speechRestartTimer = null; }
     if (recognition) { const old = recognition; recognition = null; try { old.stop(); } catch {} }
     $("finishLineBtn").hidden = true;
+  }
+  function finishListening() {
+    if (!listening) return;
+    stopListening();
     $("listenBtn").disabled = false;
     $("listenBtn").textContent = "Try listening again";
     if (spokenTranscript.trim()) checkLine(spokenTranscript.trim());
