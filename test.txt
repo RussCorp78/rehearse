@@ -1,0 +1,25 @@
+@echo off
+:: Set path to VLC executable
+set "VLC_PATH=C:\Program Files\VideoLAN\VLC\vlc.exe"
+
+:: Check if a file was dropped/passed
+if "%~1"=="" (
+    echo [ERROR] No file detected. 
+    echo Drag and drop a file directly onto this icon, or run it via Send To.
+    pause
+    exit /b
+)
+
+set "INPUT_FILE=%~1"
+set "OUTPUT_FILE=%~dpn1.mp3"
+
+echo Processing: "%INPUT_FILE%"
+echo Output:     "%OUTPUT_FILE%"
+
+"%VLC_PATH%" -I dummy -vvv "%INPUT_FILE%" --sout="#transcode{vcodec=none,acodec=mp3,ab=192,channels=2,samplerate=44100}:std{access=file,mux=raw,dst=\"%OUTPUT_FILE%\"}" vlc://quit
+
+if errorlevel 1 (
+    echo.
+    echo [FAILED] VLC encountered an error during conversion.
+    pause
+)
